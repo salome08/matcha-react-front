@@ -36,8 +36,8 @@ function resetPassword(email) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(email),
-    mode: 'no-cors'
+    body: JSON.stringify({email}),
+    // mode: 'no-cors'
   };
 
   return fetch(`${config.apiUrl}/mails/forgotpassword`, requestOptions)

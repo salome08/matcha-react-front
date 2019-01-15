@@ -47,7 +47,7 @@ function resetPassword(email) {
       .then(
         user => {
           dispatch({type: userConstants.RESET_PASSWORD_SUCCESS}, email);
-          dispatch(alertActions.success('A reinitialization password email has been sent'));
+          dispatch(alertActions.success('A reinitialization password email has been sent to this adress'));
         },
         error => {
           dispatch({type: userConstants.RESET_PASSWORD_FAILURE}, error.toString());
