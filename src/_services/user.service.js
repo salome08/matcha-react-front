@@ -4,7 +4,9 @@ import { authHeader } from '../_helpers';
 export const userService = {
     login,
     logout,
+    forgotPassword,
     resetPassword,
+    updatePassword,
     register,
     getAll,
     getById,
@@ -32,14 +34,36 @@ function login(username, password) {
         });
 }
 
-function resetPassword(email) {
+function updatePassword(password, user_id) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({password, user_id})
+  };
+  console.log('user_id : ', user_id);
+  return fetch(`${config.apiUrl}/mails/updatePassword`, requestOptions)
+  .then(handleResponse);
+}
+
+function resetPassword(id, token) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({id, token})
+  };
+  console.log('token 1: ', token);
+  return fetch(`${config.apiUrl}/mails/resetPassword`, requestOptions)
+  .then(handleResponse);
+}
+
+function forgotPassword(email) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({email}),
     // mode: 'no-cors'
   };
-
+  
   return fetch(`${config.apiUrl}/mails/forgotpassword`, requestOptions)
   .then(handleResponse);
 }

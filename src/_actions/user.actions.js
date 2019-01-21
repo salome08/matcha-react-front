@@ -7,6 +7,8 @@ export const userActions = {
     login,
     logout,
     resetPassword,
+    updatePassword,
+    forgotPassword,
     register,
     getAll,
     delete: _delete
@@ -39,18 +41,56 @@ function logout() {
     return { type: userConstants.LOGOUT };
 }
 
-function resetPassword(email) {
+//update new password into database
+function updatePassword(password, user_id) {
   return dispatch => {
-      dispatch({type: userConstants.RESET_PASSWORD_REQUEST} , email);
+    dispatch({type: userConstants.UPDATE_PASSWORD_REQUEST}, password);
+    userService.updatePassword(password, user_id)
+    .then(
+      user => {
+        dispatch({type: userConstants.UPDATE_PASSWORD_SUCCESS});
+        dispatch(alertActions.success('Your password has been changed'));
+      },
+      error => {
+        dispatch({type: userConstants.UPDATE_PASSWORD_FAILURE}, error.toString());
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
 
-      userService.resetPassword(email)
+//check reset pass token from url
+function resetPassword(id, token) {
+  return dispatch => {
+    dispatch({type: userConstants.RESET_PASSWORD_REQUEST }, id, token);
+
+    userService.resetPassword(id, token)
+    .then(
+      user => {
+        dispatch({type: userConstants.RESET_PASSWORD_SUCCESS, user: user.user});
+        dispatch(alertActions.success('You can change your password'));
+      },
+      error => {
+        dispatch({type: userConstants.RESET_PASSWORD_FAILURE}, error.toString());
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
+
+//send reset password mail
+function forgotPassword(email) {
+  return dispatch => {
+      dispatch({type: userConstants.FORGOT_PASSWORD_REQUEST});
+
+      userService.forgotPassword(email)
       .then(
         user => {
-          dispatch({type: userConstants.RESET_PASSWORD_SUCCESS}, email);
+          dispatch({type: userConstants.FORGOT_PASSWORD_SUCCESS});
           dispatch(alertActions.success('A reinitialization password email has been sent to this adress'));
         },
         error => {
-          dispatch({type: userConstants.RESET_PASSWORD_FAILURE}, error.toString());
+          dispatch({type: userConstants.FORGOT_PASSWORD_FAILURE}, error.toString());
           dispatch(alertActions.error(error.toString()))
         }
     );

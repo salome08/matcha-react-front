@@ -29,7 +29,7 @@ handleSubmit(e) {
   const { email } = this.state;
   const { dispatch } = this.props;
   if (email) {
-    dispatch(userActions.resetPassword(email));
+    dispatch(userActions.forgotPassword(email));
   }
 }
 

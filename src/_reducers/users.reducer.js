@@ -2,17 +2,49 @@ import { userConstants } from '../_constants';
 
 export function users(state = {}, action) {
   switch (action.type) {
-    case userConstants.FORGOR_PASSWORD_REQUEST:
+    case userConstants.UPDATE_PASSWORD_REQUEST:
+      return {
+        ...state,
+        update: false,
+        error: false
+      };
+    case userConstants.UPDATE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        update: true,
+        error: false
+      };
+    case userConstants.UPDATE_PASSWORD_FAILURE:
+      return {
+        update: false,
+        error: true
+      };
+    case userConstants.RESET_PASSWORD_REQUEST:
+      return {
+        update: false,
+        isLoading: false,
+        error: false
+      };
+    case userConstants.RESET_PASSWORD_SUCCESS:
+      return {
+        user: action.user,
+        update: false,
+        isLoading: false,
+        error: false
+      };
+    case userConstants.RESET_PASSWORD_FAILURE:
+      return {
+        error: true
+      };
+    case userConstants.FORGOT_PASSWORD_REQUEST:
       return {
         sendingForgetPass: true,
-        email: action
       };
-    case userConstants.FORGOR_PASSWORD_SUCCESS:
+    case userConstants.FORGOT_PASSWORD_SUCCESS:
       return {
         sendingForgetPass: true,
-        email: action
       };
-    case userConstants.FORGOR_PASSWORD_FAILURE:
+    case userConstants.FORGOT_PASSWORD_FAILURE:
       return {};
     case userConstants.GETALL_REQUEST:
       return {
