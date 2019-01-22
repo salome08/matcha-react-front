@@ -10,6 +10,7 @@ import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { ForgotPasswordPage } from '../ForgotPasswordPage';
 import { ResetPasswordPage } from '../ResetPasswordPage';
+import { EditProfilePage } from '../EditProfilePage';
 
 class App extends React.Component {
     constructor(props) {
@@ -34,12 +35,11 @@ class App extends React.Component {
                         <Router history={history}>
                             <div>
                                 <PrivateRoute exact path="/" component={HomePage} />
+                                <PrivateRoute path="/editProfile" component={EditProfilePage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
                                 <Route path="/identify" component={ForgotPasswordPage} />
-                                <div>
                                 <Route path="/resetPassword/:id?/:token?" component={ResetPasswordPage} />
-                                </div>
                             </div>
                         </Router>
                     </div>

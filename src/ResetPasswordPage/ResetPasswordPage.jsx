@@ -1,8 +1,6 @@
-import config from 'config';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import { userActions } from '../_actions';
 
@@ -50,28 +48,6 @@ class ResetPasswordPage extends React.Component {
       if (id && token) {
         dispatch(userActions.resetPassword(id, token));
       }
-      // axios
-      // .post(`${config.apiUrl}/mails/resetpassword`, {id: id, token: token})
-      // .then((response) => {
-      //   if (response.data.message === 'tokenVerificationOK') {
-      //     this.setState({
-      //       username: response.data.user.lastname,
-      //       update: false,
-      //       isLoading: false,
-      //       error: false
-      //     });
-      //   }
-      //   else {
-      //     this.setState({
-      //       update: false,
-      //       isLoading: false,
-      //       error: true
-      //     });
-      //   }
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
   }
 
   render() {
