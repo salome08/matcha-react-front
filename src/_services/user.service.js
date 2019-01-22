@@ -51,7 +51,6 @@ function resetPassword(id, token) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({id, token})
   };
-  console.log('token 1: ', token);
   return fetch(`${config.apiUrl}/mails/resetPassword`, requestOptions)
   .then(handleResponse);
 }
@@ -63,7 +62,7 @@ function forgotPassword(email) {
     body: JSON.stringify({email}),
     // mode: 'no-cors'
   };
-  
+
   return fetch(`${config.apiUrl}/mails/forgotpassword`, requestOptions)
   .then(handleResponse);
 }
