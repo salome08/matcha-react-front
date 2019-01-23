@@ -18,10 +18,23 @@ class EditProfilePage extends React.Component {
     console.log(this.props);
     return (
       <div>
-        <h1>Hi, edit your profile here!</h1>
-      <p><Link to="/" className="btn btn-link">Cancel</Link></p>
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <div className="input-group-text"> Gender
+              <input type="radio" aria-label="Checkbox for following text input"></input>
+              M<input type="radio" aria-label="Checkbox for following text input"></input>
+              F
+            </div>
+          </div>
+        </div>
+
+
+
+        <div className="container">
+          <button type="button" className="btn btn-success">Save</button>
+          <Link to="/" className="btn btn-link">Cancel</Link>
+        </div>
       </div>
-      
     )
   }
 }
