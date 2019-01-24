@@ -13,9 +13,11 @@
     "axios": "^0.18.0",
     "history": "^4.6.3",
     "react": "^16.0.0",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
+    "react-tag-input": "^6.2.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0"
