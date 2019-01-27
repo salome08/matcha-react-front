@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, Col, FormGroup, Checkbox, Radio, ControlLabel, FormControl, Button } from 'react-bootstrap';
-import { TagsInput } from '../_components'
+import { Form, Col, FormGroup, Checkbox, Radio, ControlLabel,
+  FormControl, Button } from 'react-bootstrap';
+import { TagsInput } from '../_components';
+import '../styles/inputTags.css';
 
 import { userActions } from '../_actions';
 
@@ -16,7 +18,8 @@ class EditProfilePage extends React.Component {
       bio: '',
       tags: '',
       submitted: false,
-      isLoading: false
+      isLoading: false,
+      name: 'lola'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,8 +45,9 @@ class EditProfilePage extends React.Component {
   render() {
     return (
       <form>
+      <h1>Edit your profile</h1>
         <FormGroup>
-           <Radio name="radioGroup" inline>
+          Genre {'.............'}     <Radio name="radioGroup" inline>
              M
            </Radio>{' '}
            <Radio name="radioGroup" inline>
@@ -52,6 +56,7 @@ class EditProfilePage extends React.Component {
          </FormGroup>
 
          <FormGroup>
+         Affinity {'.............'}
           <Checkbox inline>
             M
           </Checkbox>
@@ -66,6 +71,32 @@ class EditProfilePage extends React.Component {
          </FormGroup>
 
          <TagsInput></TagsInput>
+
+         <hr></hr>
+
+         <FormGroup>
+           <ControlLabel>Name</ControlLabel>
+           <FormControl type="text" placeholder={this.props.name} />
+         </FormGroup>
+
+         <FormGroup>
+           <ControlLabel>Last name</ControlLabel>
+           <FormControl type="email" placeholder="Enter email" />
+         </FormGroup>
+
+         <FormGroup controlId="formBasicEmail">
+           <ControlLabel>Email address</ControlLabel>
+           <FormControl type="email" placeholder="Enter email" />
+         </FormGroup>
+
+         <FormGroup>
+           <ControlLabel>Password</ControlLabel>
+           <FormControl type="email" placeholder="Enter email" />
+         </FormGroup>
+
+         <button className="btn btn-success">Save</button>
+         <Link to="/" className="btn btn-link">Cancel</Link>
+
         </form>
 
 

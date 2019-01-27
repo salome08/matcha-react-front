@@ -15,7 +15,7 @@ class TagsInput extends React.Component {
 
         this.state = {
             tags: [
-                { id: "Love", text: "Love" },
+                { id: "LOVE", text: "Love" },
              ],
             suggestions: [
                 { id: 'Try', text: 'Try' },
@@ -38,14 +38,7 @@ class TagsInput extends React.Component {
     }
 
     handleDrag(tag, currPos, newPos) {
-        const tags = [...this.state.tags];
-        const newTags = tags.slice();
-
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
-
-        // re-render
-        this.setState({ tags: newTags });
+        return false;
     }
 
     render() {

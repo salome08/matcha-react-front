@@ -12,6 +12,9 @@ import { ForgotPasswordPage } from '../ForgotPasswordPage';
 import { ResetPasswordPage } from '../ResetPasswordPage';
 import { EditProfilePage } from '../EditProfilePage';
 
+import '../styles/inputTags.css';
+
+
 class App extends React.Component {
     constructor(props) {
         super(props);
