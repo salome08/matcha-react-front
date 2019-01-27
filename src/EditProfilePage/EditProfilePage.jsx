@@ -2,32 +2,44 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Col, FormGroup, Checkbox, Radio, ControlLabel,
-  FormControl, Button } from 'react-bootstrap';
+  FormControl, Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { TagsInput } from '../_components';
 import '../styles/inputTags.css';
 
 import { userActions } from '../_actions';
 
 class EditProfilePage extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
+    const user = this.props.user.user;
 
     this.state = {
-      genre: '',
+      gender: [],
       affinity: '',
       bio: '',
-      tags: '',
+      tags: [],
       submitted: false,
       isLoading: false,
-      name: 'lola'
+      name: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.password
     };
 
+    this.handleToUpdate = this.handleToUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
+  handleToUpdate(tags){
+    this.setState({tags:tags});
+  }
+
   handleChange(e) {
       const { name, value } = e.target;
+      // name = e.target.name;
+      // console.log(e.target);
       this.setState({ [name]: value });
   }
 
@@ -35,71 +47,104 @@ class EditProfilePage extends React.Component {
       e.preventDefault();
 
       this.setState({ submitted: true });
-      const { username, password } = this.state;
+      const { username, password, tags } = this.state;
       const { dispatch } = this.props;
       if (username && password) {
-          dispatch(userActions.login(username, password));
+          dispatch(userActions.editProfile(gender, affinity,
+            bio, tags, name, lastname, email, password));
       }
+      console.log(tags);
   }
 
   render() {
+    const { gender, affinity, bio, tags, name, lastname,
+      email, password, submitted } = this.state;
+    const user = this.props.user.user;
+    let handleToUpdate  =  this.handleToUpdate;
+
     return (
-      <form>
-      <h1>Edit your profile</h1>
+      <form onSubmit={this.handleSubmit}>
+        <h1>Edit your profile</h1>
+
+
         <FormGroup>
-          Genre {'.............'}     <Radio name="radioGroup" inline>
-             M
-           </Radio>{' '}
-           <Radio name="radioGroup" inline>
-             F
-           </Radio>{' '}
+      <ControlLabel>Gender</ControlLabel>{' '}
+        <ToggleButtonGroup type="radio" name="gender" >
+           <ToggleButton name="male" value={1} onChange={this.handleChange}>Male</ToggleButton>
+           <ToggleButton name="female" value={2} onChange={this.handleChange}>Female</ToggleButton>
+         </ToggleButtonGroup>
          </FormGroup>
 
          <FormGroup>
-         Affinity {'.............'}
-          <Checkbox inline>
-            M
-          </Checkbox>
-          <Checkbox inline>
-            F
-          </Checkbox>{' '}
-         </FormGroup>
+         <ControlLabel>Affinity</ControlLabel>{' '}
+           <ToggleButtonGroup type="radio" name="affinity" >
+              <ToggleButton name="male" value={1} onChange={this.handleChange}>Male</ToggleButton>
+              <ToggleButton name="female" value={2} onChange={this.handleChange}>Female</ToggleButton>
+              <ToggleButton name="both" value={3} onChange={this.handleChange}>Both</ToggleButton>
+            </ToggleButtonGroup>
+            </FormGroup>
 
-         <FormGroup controlId="formControlsTextarea">
-            <ControlLabel>Bio</ControlLabel>
-            <FormControl componentClass="textarea" placeholder="Write here a short bio..." />
-         </FormGroup>
+        <FormGroup controlId="bio">
+          <ControlLabel>Bio</ControlLabel>
+          <FormControl name="bio" value={bio} onChange={this.handleChange} componentClass="textarea" placeholder="Write here a short bio..." />
+        </FormGroup>
 
-         <TagsInput></TagsInput>
+        <FormGroup>
+        <ControlLabel name="tags">Tags</ControlLabel>{' '}
+        <TagsInput handleToUpdate={this.handleToUpdate} ></TagsInput>
+        </FormGroup>
+        <hr></hr>
 
-         <hr></hr>
+        <FormGroup controlId="name"
+          validationState={(submitted && !name ? 'error' : 'success')}>
+          <ControlLabel>Name</ControlLabel>
+          <FormControl  type="text"
+            name="name"
+            value={name}
+            placeholder={user.firstname}
+            onChange={this.handleChange}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
 
-         <FormGroup>
-           <ControlLabel>Name</ControlLabel>
-           <FormControl type="text" placeholder={this.props.name} />
-         </FormGroup>
+        <FormGroup controlId="lastname"
+          validationState={(submitted && !lastname ? 'error' : 'success')}>
+          <ControlLabel>Last name</ControlLabel>
+          <FormControl type="text"
+           name="lastname"
+           value={lastname}
+           placeholder={user.lastname}
+           onChange={this.handleChange}
+           />
+           <FormControl.Feedback />
+        </FormGroup>
 
-         <FormGroup>
-           <ControlLabel>Last name</ControlLabel>
-           <FormControl type="email" placeholder="Enter email" />
-         </FormGroup>
+        <FormGroup controlId="email"
+          validationState={(submitted && !email ? 'error' : 'success')}>
+          <ControlLabel>Email address</ControlLabel>
+          <FormControl type="email"
+          name="email"
+          value={email}
+          placeholder={user.email}
+          onChange={this.handleChange}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
 
-         <FormGroup controlId="formBasicEmail">
-           <ControlLabel>Email address</ControlLabel>
-           <FormControl type="email" placeholder="Enter email" />
-         </FormGroup>
+        <FormGroup controlId="password"
+          validationState={(submitted && !password ? 'error' : 'success')}>
+          <ControlLabel>Password</ControlLabel>
+          <FormControl type="password"
+          value={password}
+          name="password" placeholder="000000"
+          onChange={this.handleChange}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
 
-         <FormGroup>
-           <ControlLabel>Password</ControlLabel>
-           <FormControl type="email" placeholder="Enter email" />
-         </FormGroup>
-
-         <button className="btn btn-success">Save</button>
-         <Link to="/" className="btn btn-link">Cancel</Link>
-
-        </form>
-
-
+        <button className="btn btn-success">Save</button>
+        <Link to="/" className="btn btn-link">Cancel</Link>
+      </form>
     );
   }
 }

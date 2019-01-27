@@ -12,18 +12,19 @@ const delimiters = [KeyCodes.comma, KeyCodes.enter];
 class TagsInput extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            tags: [
-                { id: "LOVE", text: "Love" },
-             ],
-            suggestions: [
-                { id: 'Try', text: 'Try' },
-             ]
+            tags: []
         };
+
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
+
+    }
+
+    componentDidUpdate(prev) {
+      console.log('prev : ', prev);
+      console.log(this.state.tags);
     }
 
     handleDelete(i) {
@@ -51,7 +52,7 @@ class TagsInput extends React.Component {
                     handleAddition={this.handleAddition}
                     handleDrag={this.handleDrag}
                     delimiters={delimiters} />
-            </div>
+              </div>
         )
     }
 };
