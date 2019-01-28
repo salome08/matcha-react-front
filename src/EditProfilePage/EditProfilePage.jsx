@@ -53,7 +53,7 @@ class EditProfilePage extends React.Component {
           dispatch(userActions.editProfile(gender, affinity,
             bio, tags, name, lastname, email, password));
       }
-      console.log(tags);
+      console.log('parents tags : ', tags);
   }
 
   render() {
@@ -61,7 +61,6 @@ class EditProfilePage extends React.Component {
       email, password, submitted } = this.state;
     const user = this.props.user.user;
     let handleToUpdate  =  this.handleToUpdate;
-
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>Edit your profile</h1>

@@ -22,9 +22,12 @@ class TagsInput extends React.Component {
 
     }
 
-    componentDidUpdate(prev) {
-      console.log('prev : ', prev);
-      console.log(this.state.tags);
+    componentDidUpdate(prevProps, prevState) {
+      if (prevState.tags !== this.state.tags){
+        this.props.handleToUpdate(this.state.tags)
+      // console.log('child update : ', this.state.tags);
+      }
+
     }
 
     handleDelete(i) {
@@ -35,7 +38,10 @@ class TagsInput extends React.Component {
     }
 
     handleAddition(tag) {
+        // const {  handleToUpdate } =  this.props;
         this.setState(state => ({ tags: [...state.tags, tag] }));
+        // handleToUpdate(this.state.tags);
+        // console.log('child add : ', this.state.tags);
     }
 
     handleDrag(tag, currPos, newPos) {
