@@ -21,22 +21,17 @@ class EditProfilePage extends React.Component {
       bio: '',
       tags: [],
       submitted: false,
-      isLoading: false,
       name: user.firstname,
       lastname: user.lastname,
       email: user.email,
       password: user.password,
     };
 
-    this.initState = {};
+    this.initState = this.state;
 
     this.handleToUpdate = this.handleToUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount(){
-    this.initState = this.state;
   }
 
   handleToUpdate(tags){
@@ -50,20 +45,22 @@ class EditProfilePage extends React.Component {
 
   handleSubmit(e) {
       e.preventDefault();
-
-      this.setState({ submitted: true });
       const { username, password, tags } = this.state;
       const { dispatch } = this.props;
       const toEdit = diff(this.initState, this.state);
+
+      this.setState({ submitted: true });
+      this.initState.submitted = true;
+      this.initState = this.state;
       if (!isEmptyObject(toEdit)) {
-        console.log('not ok');
-          // dispatch(userActions.editProfile(toEdit));
+        dispatch(userActions.editProfile(toEdit));
       }
   }
 
   render() {
     const { gender, affinity, bio, tags, name, lastname,
       email, password, submitted } = this.state;
+    const { isLoading } = this.props;
     const user = this.props.user.user;
     let handleToUpdate  =  this.handleToUpdate;
     return (
@@ -147,6 +144,9 @@ class EditProfilePage extends React.Component {
         </FormGroup>
 
         <button className="btn btn-success">Save</button>
+        {isLoading &&
+            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        }
         <Link to="/" className="btn btn-link">Cancel</Link>
       </form>
     );

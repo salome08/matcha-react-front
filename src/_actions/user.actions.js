@@ -9,6 +9,7 @@ export const userActions = {
     resetPassword,
     updatePassword,
     forgotPassword,
+    editProfile,
     register,
     getAll,
     delete: _delete
@@ -95,6 +96,24 @@ function forgotPassword(email) {
         }
     );
   };
+}
+
+function editProfile(toEdit){
+  return dispatch => {
+    dispatch({type: userConstants.EDIT_PROFILE_REQUEST});
+
+    userService.editProfile(toEdit)
+    .then(
+      user => {
+        dispatch({type: userConstants.EDIT_PROFILE_SUCCESS});
+        dispatch(alertActions.success('Your informations has been changed'));
+      },
+      error => {
+        dispatch({type: userConstants.EDIT_PROFILE_FAILURE}, error.toString());
+        dispatch(alertActions.error(error.toString()))
+      }
+    );
+  }
 }
 
 function register(user) {

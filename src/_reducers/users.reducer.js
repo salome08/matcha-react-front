@@ -2,12 +2,27 @@ import { userConstants } from '../_constants';
 
 export function users(state = {}, action) {
   switch (action.type) {
+    case userConstants.EDIT_PROFILE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case userConstants.EDIT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        edit: true,
+      };
+    case userConstants.EDIT_PROFILE_FAILURE:
+      return {
+        edit: false,
+        error: true
+      };
     case userConstants.UPDATE_PASSWORD_REQUEST:
       return {
         ...state,
         update: false,
         error: false
-      };
+      };.0
     case userConstants.UPDATE_PASSWORD_SUCCESS:
       return {
         ...state,

@@ -7,6 +7,7 @@ export const userService = {
     forgotPassword,
     resetPassword,
     updatePassword,
+    editProfile,
     register,
     getAll,
     getById,
@@ -40,7 +41,6 @@ function updatePassword(password, user_id) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({password, user_id})
   };
-  console.log('user_id : ', user_id);
   return fetch(`${config.apiUrl}/mails/updatePassword`, requestOptions)
   .then(handleResponse);
 }
@@ -65,6 +65,19 @@ function forgotPassword(email) {
 
   return fetch(`${config.apiUrl}/mails/forgotpassword`, requestOptions)
   .then(handleResponse);
+}
+
+function editProfile(toEdit) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({toEdit})
+  };
+
+  console.log('user service : ', toEdit);
+  // return fetch(`${config.apiUrl}/mails/updatePassword`, requestOptions)
+  // .then(handleResponse);
+
 }
 
 function logout() {
