@@ -12,6 +12,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "history": "^4.6.3",
+    "is-empty-object": "^1.1.1",
+    "object-diff": "0.0.4",
     "react": "^16.0.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",

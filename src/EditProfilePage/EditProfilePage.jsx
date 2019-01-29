@@ -5,6 +5,8 @@ import { Form, Col, FormGroup, Checkbox, Radio, ControlLabel,
   FormControl, Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { TagsInput } from '../_components';
 import '../styles/inputTags.css';
+import  diff  from 'object-diff';
+import  isEmptyObject from 'is-empty-object';
 
 import { userActions } from '../_actions';
 
@@ -14,7 +16,7 @@ class EditProfilePage extends React.Component {
     const user = this.props.user.user;
 
     this.state = {
-      gender: [],
+      gender: '',
       affinity: '',
       bio: '',
       tags: [],
@@ -23,14 +25,19 @@ class EditProfilePage extends React.Component {
       name: user.firstname,
       lastname: user.lastname,
       email: user.email,
-      password: user.password
+      password: user.password,
     };
+
+    this.initState = {};
 
     this.handleToUpdate = this.handleToUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount(){
+    this.initState = this.state;
+  }
 
   handleToUpdate(tags){
     this.setState({tags:tags});
@@ -38,8 +45,6 @@ class EditProfilePage extends React.Component {
 
   handleChange(e) {
       const { name, value } = e.target;
-      // name = e.target.name;
-      // console.log(e.target);
       this.setState({ [name]: value });
   }
 
@@ -49,11 +54,11 @@ class EditProfilePage extends React.Component {
       this.setState({ submitted: true });
       const { username, password, tags } = this.state;
       const { dispatch } = this.props;
-      if (username && password) {
-          dispatch(userActions.editProfile(gender, affinity,
-            bio, tags, name, lastname, email, password));
+      const toEdit = diff(this.initState, this.state);
+      if (!isEmptyObject(toEdit)) {
+        console.log('not ok');
+          // dispatch(userActions.editProfile(toEdit));
       }
-      console.log('parents tags : ', tags);
   }
 
   render() {
