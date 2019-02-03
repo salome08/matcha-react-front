@@ -67,16 +67,15 @@ function forgotPassword(email) {
   .then(handleResponse);
 }
 
-function editProfile(toEdit) {
+function editProfile(toEdit, user_id) {
   const requestOptions = {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({toEdit})
+    body: JSON.stringify({toEdit, user_id})
   };
 
-  console.log('user service : ', toEdit);
-  // return fetch(`${config.apiUrl}/mails/updatePassword`, requestOptions)
-  // .then(handleResponse);
+  return fetch(`${config.apiUrl}/users/editProfile`, requestOptions)
+  .then(handleResponse);
 
 }
 

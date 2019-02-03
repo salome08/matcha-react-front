@@ -48,12 +48,13 @@ class EditProfilePage extends React.Component {
       const { username, password, tags } = this.state;
       const { dispatch } = this.props;
       const toEdit = diff(this.initState, this.state);
+      const user = this.props.user.user;
 
       this.setState({ submitted: true });
       this.initState.submitted = true;
       this.initState = this.state;
       if (!isEmptyObject(toEdit)) {
-        dispatch(userActions.editProfile(toEdit));
+        dispatch(userActions.editProfile(toEdit, user));
       }
   }
 

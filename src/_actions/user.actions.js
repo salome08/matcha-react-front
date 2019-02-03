@@ -98,11 +98,11 @@ function forgotPassword(email) {
   };
 }
 
-function editProfile(toEdit){
+function editProfile(toEdit, user){
   return dispatch => {
     dispatch({type: userConstants.EDIT_PROFILE_REQUEST});
 
-    userService.editProfile(toEdit)
+    userService.editProfile(toEdit, user.id)
     .then(
       user => {
         dispatch({type: userConstants.EDIT_PROFILE_SUCCESS});
