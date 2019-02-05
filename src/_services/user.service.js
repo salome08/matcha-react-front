@@ -75,7 +75,10 @@ function editProfile(toEdit, user_id) {
   };
 
   return fetch(`${config.apiUrl}/users/editProfile`, requestOptions)
-  .then(handleResponse);
+  .then(handleResponse)
+  .then(user => {
+    return user;
+  });
 
 }
 

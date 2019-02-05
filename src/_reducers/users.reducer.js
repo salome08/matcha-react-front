@@ -10,6 +10,7 @@ export function users(state = {}, action) {
     case userConstants.EDIT_PROFILE_SUCCESS:
       return {
         ...state,
+        user: action.user,
         edit: true,
       };
     case userConstants.EDIT_PROFILE_FAILURE:

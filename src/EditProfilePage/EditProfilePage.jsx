@@ -16,10 +16,10 @@ class EditProfilePage extends React.Component {
     const user = this.props.user.user;
 
     this.state = {
-      gender: '',
-      affinity: '',
-      bio: '',
-      tags: [],
+      gender: user.gender,
+      affinity: user.affinity,
+      bio: user.bio,
+      tags: user.tags,
       submitted: false,
       name: user.firstname,
       lastname: user.lastname,
