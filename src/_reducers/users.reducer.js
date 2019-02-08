@@ -4,13 +4,16 @@ export function users(state = {}, action) {
   switch (action.type) {
     case userConstants.EDIT_PROFILE_REQUEST:
       return {
-        ...state,
+        // ...state,
+
+        user: action.user,
         isLoading: true,
       };
     case userConstants.EDIT_PROFILE_SUCCESS:
+    console.log('reducer user : ', action.user.user);
       return {
         ...state,
-        user: action.user,
+        user: action.user.user,
         edit: true,
       };
     case userConstants.EDIT_PROFILE_FAILURE:

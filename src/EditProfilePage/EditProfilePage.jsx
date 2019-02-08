@@ -14,6 +14,9 @@ class EditProfilePage extends React.Component {
   constructor(props, context) {
     super(props, context);
     const user = this.props.user.user;
+    const user2 = this.props.test;
+    console.log('user : ', user);
+    console.log(this.props);
 
     this.state = {
       gender: user.gender,
@@ -155,8 +158,9 @@ class EditProfilePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { authentication } = state;
+    const { authentication, users } = state;
     const { user } = authentication;
+    const { test } = users;
     return {
         user,
     };

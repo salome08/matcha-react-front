@@ -105,7 +105,8 @@ function editProfile(toEdit, user){
     userService.editProfile(toEdit, user.id)
     .then(
       user => {
-        dispatch({type: userConstants.EDIT_PROFILE_SUCCESS}, user);
+        console.log('user action : ', user);
+        dispatch({type: userConstants.EDIT_PROFILE_SUCCESS, user});
         dispatch(alertActions.success('Your informations has been changed'));
       },
       error => {
